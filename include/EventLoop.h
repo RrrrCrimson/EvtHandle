@@ -8,11 +8,14 @@
 #include <pthread.h>
 
 namespace EvtHandle {
+class Channel;
+class Poller;
 class EventLoop : noncopyable {
 public :
     EventLoop();
     ~EventLoop();
     void loop();
+    void UpdateChannel(Channel* channel);
 //    bool IsInLoopThread() const {
 //        return threadId_ == pthread_self();
 //    }
