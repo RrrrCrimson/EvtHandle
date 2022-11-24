@@ -10,7 +10,11 @@ __thread EventLoop* t_loopInThisThread = 0;
 const int kPollTimeMs = 10000;
 
 
-EventLoop::EventLoop() :isLooping_(false), threadId_(pthread_self()) {
+EventLoop::EventLoop() :isLooping_(false)
+                    , threadId_(pthread_self())
+                    , quit_(false)
+                    , poller_(std::unique_ptr<Poller>(Poller::newDefaultPoller(this)))
+{
     std::cout<< "EventLoop created " << this << " in thread " << threadId_<<std::endl;
     if(t_loopInThisThread) {
         std::cout << "Another EventLoop " << t_loopInThisThread

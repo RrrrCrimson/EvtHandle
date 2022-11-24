@@ -24,7 +24,7 @@ explicit Poller(EventLoop* loop) : ownerLoop_(loop) {};
 timeval Poll(int timeOutMs, ChannelList* activeChannels);
 
 void UpdateChannel(Channel* channel);
-
+static Poller* newDefaultPoller(EventLoop* loop);
 private:
 void fillActiveChannels(int numEvents, ChannelList* activeChannels) const;
 

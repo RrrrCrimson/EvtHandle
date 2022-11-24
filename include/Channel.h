@@ -25,24 +25,48 @@ public:
 
     void setErrorCallback(EeventCB cb) { errorCB_ = std::move(cb); }
 
-    [[nodiscard]] int fd() const { return fd_; }
-
-    [[nodiscard]] int events() const { return events_; }
-
-    void set_revents(int revt) { revents_ = revt; } // used by pollers
-    [[nodiscard]] bool isNoneEvent() const { return events_ == kNoneEvent_; }
-
     void enableReading() {
         events_ |= kReadEvent_;
         update();
     }
 
+    void disableReading() {
+        events_ &= ~kReadEvent_;
+        update();
+    }
+
+    void enableWriting() {
+        events_ |= kWriteEvent_;
+        update();
+    }
+
+    void disableWriting() {
+        events_ &= ~kWriteEvent_;
+        update();
+    }
+
+    void disableAll() {
+        events_ = kNoneEvent_;
+        update();
+    }
+
+    [[nodiscard]] bool isWriting() const { return events_ & kWriteEvent_; }
+
+    [[nodiscard]] bool isReading() const { return events_ & kReadEvent_; }
+
+    [[nodiscard]] int fd() const { return fd_; }
+
+    [[nodiscard]] int events() const { return events_; }
+
+    void setRevents(int revt) { revents_ = revt; } // used by pollers
+    [[nodiscard]] bool isNoneEvent() const { return events_ == kNoneEvent_; }
+
     // for Poller
     [[nodiscard]] int index() const { return index_; }
 
-    void set_index(int idx) { index_ = idx; }
+    void setIndex(int idx) { index_ = idx; }
 
-    EventLoop *OwnerLoop() { return loop_; }
+    EventLoop *ownerLoop() { return loop_; }
 
 private:
     void update();

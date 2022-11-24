@@ -31,6 +31,10 @@ timeval Poller::Poll(int timeOutMs, Poller::ChannelList *activeChannels) {
     }
     return tv;
 }
+Poller* Poller::newDefaultPoller(EventLoop* loop)
+{
+    return new Poller(loop);
+}
 
 void Poller::UpdateChannel(Channel *channel) {
     const int index = channel->index();
@@ -48,7 +52,7 @@ void Poller::UpdateChannel(Channel *channel) {
         tmp.revents = 0;
         pollFds_.push_back(tmp);
         auto idx = pollFds_.size()-1;
-        channel->set_index(idx);
+        channel->setIndex(static_cast<int>(idx));
         channels_[tmp.fd] = channel;
     } else {
         //update existed one
@@ -76,7 +80,7 @@ void Poller::fillActiveChannels(int numEvents, Poller::ChannelList *activeChanne
             auto ch = channels_.find(pfd->fd);
             if(ch != channels_.end()) {
                 auto *chan = ch->second;
-                chan->set_revents(pfd->revents);
+                chan->setRevents(pfd->revents);
                 activeChannels->push_back(chan);
             }
         }
