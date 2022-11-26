@@ -9,6 +9,9 @@
 namespace EvtHandle {
 class InetAddress {
 public:
+    explicit InetAddress(uint16_t port = 0, bool loopbackOnly = false);
+    InetAddress(const char *ip, uint16_t port);
+
     explicit InetAddress(const struct sockaddr_in& addr)
             : addr_(addr)
     { }
@@ -20,7 +23,7 @@ public:
     static bool resolve(const char* hostname, InetAddress* result);
 
 private:
-    struct sockaddr_in addr_;
+    struct sockaddr_in addr_{};
 
 };
 }
