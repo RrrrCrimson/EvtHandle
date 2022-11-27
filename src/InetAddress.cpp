@@ -26,4 +26,17 @@ InetAddress::InetAddress(const char *ip, uint16_t port) {
         std::cout << "sockets::fromIpPort" << std::endl;
     }
 }
+std::string InetAddress::toIpPort() const
+{
+    char buf[64] = "";
+    sockets::toIpPort(buf, sizeof buf, getSockAddr());
+    return buf;
+}
+
+std::string InetAddress::toIp() const
+{
+    char buf[64] = "";
+    sockets::toIp(buf, sizeof buf, getSockAddr());
+    return buf;
+}
 }
