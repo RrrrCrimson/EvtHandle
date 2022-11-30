@@ -97,4 +97,27 @@ void toIpPort(char *buf, size_t size,
     uint16_t port = be16toh(addr4->sin_port);
     snprintf(buf + end, size - end, ":%u", port);
 }
+
+struct sockaddr_in getLocalAddr(int sockfd)
+{
+    struct sockaddr_in localaddr{};
+    auto addrlen = static_cast<socklen_t>(sizeof localaddr);
+    if (::getsockname(sockfd, (sockaddr*)(&localaddr), &addrlen) < 0)
+    {
+        std::cout << "sockets::getLocalAddr" << std::endl;
+    }
+    return localaddr;
+}
+
+struct sockaddr_in getPeerAddr(int sockfd)
+{
+    struct sockaddr_in peeraddr{};
+    auto addrlen = static_cast<socklen_t>(sizeof peeraddr);
+    if (::getpeername(sockfd, (sockaddr*)(&peeraddr), &addrlen) < 0)
+    {
+        std::cout << "sockets::getPeerAddr" << std::endl;
+    }
+    return peeraddr;
+}
+
 }

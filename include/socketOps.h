@@ -38,5 +38,11 @@ void shutdownWrite(int sockfd);
 void toIp(char *buf, size_t size, const struct sockaddr *addr);
 
 void toIpPort(char *buf, size_t size, const struct sockaddr *addr);
+
+struct sockaddr_in getLocalAddr(int sockfd);
+
+struct sockaddr_in getPeerAddr(int sockfd);
+
+
 }
 #endif //EVTHANDLE_SOCKETOPS_H

@@ -5,6 +5,6 @@ set(SRCS
     Socket.cpp
     InetAddress.cpp
     Acceptor.cpp
-    socketOps.cpp)
+    socketOps.cpp TcpServer.cpp TcpConnection.cpp)
 
 add_library(EvtHandleNet ${SRCS})
