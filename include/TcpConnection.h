@@ -34,6 +34,9 @@ public:
 
     const InetAddress &getPeerAddr() const;
 
+    EventLoop *getLoop() const;
+
+    const InetAddress &getLocalAddr() const;
 private:
     enum State {
         connected,

@@ -48,4 +48,12 @@ const std::string &TcpConnection::getName() const {
 const InetAddress &TcpConnection::getPeerAddr() const {
     return peerAddr_;
 }
+
+EventLoop *TcpConnection::getLoop() const {
+    return loop_;
+}
+
+const InetAddress &TcpConnection::getLocalAddr() const {
+    return localAddr_;
+}
 }
