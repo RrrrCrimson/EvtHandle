@@ -8,16 +8,16 @@
 #include <functional>
 namespace EvtHandle {
 
-    void TcpConnection::setState(TcpConnection::State state) {
-        state_ = state;
-    }
+void TcpConnection::setState(TcpConnection::State state) {
+    state_ = state;
+}
 
-    void TcpConnection::handleRead() {
-        char buf[65535];
-        auto n = read(channel_->fd(), buf, sizeof(buf));
-        timeval tv{};
-        messageCb_(shared_from_this(), buf, tv);
-    }
+void TcpConnection::handleRead() {
+    char buf[65535];
+    auto n = read(channel_->fd(), buf, sizeof(buf));
+    timeval tv{};
+    messageCb_(shared_from_this(), buf, tv);
+}
 
 TcpConnection::TcpConnection(EventLoop *loop,
                              std::string name,
@@ -41,11 +41,11 @@ void TcpConnection::connectEstablished() {
     connectionCb_(shared_from_this());
 }
 
-    const std::string &TcpConnection::getName() const {
-        return name_;
-    }
+const std::string &TcpConnection::getName() const {
+    return name_;
+}
 
-    const InetAddress &TcpConnection::getPeerAddr() const {
-        return peerAddr_;
-    }
+const InetAddress &TcpConnection::getPeerAddr() const {
+    return peerAddr_;
+}
 }

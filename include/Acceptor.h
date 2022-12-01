@@ -12,6 +12,7 @@
 namespace EvtHandle{
 class EventLoop;
 class InetAddress;
+
 class Acceptor : noncopyable {
 public:
     using ConnectionCB = std::function<void(int fd, const InetAddress&)> ;
@@ -20,7 +21,8 @@ public:
     void setCb(const ConnectionCB &cb);
     [[nodiscard]] bool isListening() const {return isListening_;};
     void Listen();
-    private:
+
+private:
     void handleRead();
     EventLoop* loop_;
     Socket acceptSocket_;//an RAII Server socket

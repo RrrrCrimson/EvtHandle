@@ -18,7 +18,7 @@ using TimerCB = std::function<void()>;
 using ConnectionCB = std::function<void (const TcpConnectionPtr&)>;
 using MessageCB = std::function<void (const TcpConnectionPtr&, char*, timeval)>;
 
-class TcpConnection : noncopyable, std::enable_shared_from_this<TcpConnection> {
+class TcpConnection : noncopyable, public std::enable_shared_from_this<TcpConnection> {
 public:
     TcpConnection(EventLoop *loop, std::string name, int fd, const InetAddress& localAddr, const InetAddress& peerAddr);
 

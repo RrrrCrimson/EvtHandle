@@ -20,7 +20,7 @@ void onMessage(const EvtHandle::TcpConnectionPtr& conn, char* buf, timeval tv) {
 int main() {
     std::cout<<"main:pid = "<<getpid()<<std::endl;
     EvtHandle::EventLoop loop;
-    EvtHandle::InetAddress addr(2022);
+    EvtHandle::InetAddress addr(4047);
     EvtHandle::TcpServer server(&loop,addr, "Discard server");
     server.setConnectionCb(onConnection);
     server.setMessageCb(onMessage);
